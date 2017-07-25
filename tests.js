@@ -1,20 +1,22 @@
+"use strict";
+
 const test = require('ava');
 
-const syncope = require('./syncope');
+const syncope = require('./index');
 
 test('syncope: should throw is provided data structure is not an Array', async t => {
     await t.throws(syncope.bind(null, 'string'));
 });
 
 test('syncope: returns object with expected set of methods', t => {
-    let syncope = syncope([1, 2, 3]);
+    let syn = syncope([1, 2, 3]);
 
-    t.is(syncope instanceof Object, true);
-    t.is(Object.keys(syncope).length, 4);
-    t.is(syncope.map.constructor, Function);
-    t.is(syncope.filter.constructor, Function);
-    t.is(syncope.reduce.constructor, Function);
-    t.is(syncope.then.constructor, Function);
+    t.is(syn instanceof Object, true);
+    t.is(Object.keys(syn).length, 4);
+    t.is(syn.map.constructor, Function);
+    t.is(syn.filter.constructor, Function);
+    t.is(syn.reduce.constructor, Function);
+    t.is(syn.then.constructor, Object.getPrototypeOf(async () => {}).constructor);
 });
 
 test('syncope: result is always thenable', async t => {

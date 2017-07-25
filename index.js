@@ -116,4 +116,4 @@ const syncope = (arr) => {
     return methods;
 };
 
-exports = syncope;
+module.exports = syncope;
