@@ -1,8 +1,10 @@
 # SYNCOPE
 
-## DISCLAIMER 
-THIS IS NOT EVEN AN ALPHA, PLEASE DO NOT USE IT
+## Disclaimer
 
-## DESCRIPTION
-makes async operations over any iterable object as simple as the sync ones
+This is not even an alpha version, please do not use it. 
+
+## Description
+
+Makes async operations over any iterable object as simple as the sync ones.
 
