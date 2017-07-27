@@ -31,11 +31,11 @@ const syncope = (arr) => {
                     let temp = await getState();
                     let mask = await Promise.all(temp.map(handler));
 
-                    temp = temp.filter((item, i) => {
+                    temp = await getState();
+
+                    return temp.filter((item, i) => {
                         return mask[i];
                     });
-
-                    return temp;
                 });
 
                 break;
@@ -55,13 +55,14 @@ const syncope = (arr) => {
                 operations.push(async () => {
                     let temp = await getState();
 
-                    let reduceHandler = (acc, val) => {
+                    const asyncAction = async (acc, val) => {
+                        acc = await acc;
+                        return handler(acc, val);
+                    };
 
-                        let asyncAction = async (acc, val) => {
-                            return handler(await Promise.resolve(acc), val);
-                        };
+                    const reduceHandler = async (acc, val) => {
 
-                        return asyncAction(acc, val);
+                        return await asyncAction(acc, val);
                     };
 
                     return temp.reduce(reduceHandler, rest.initialValue);
@@ -95,19 +96,28 @@ const syncope = (arr) => {
 
         then: async (handler) => {
 
-            await Promise.all(operations.map(async (op, i, all) => {
-                let update;
-                if (i) {
-                    update = await all[i - 1]();
-                    updateState(update);
-                }
-
-                update = await op();
-
+            let update;
+            for (let i = 0, len = operations.length; i < len; i++) {
+                update = await operations[i]().catch(error => console.error(error));
                 updateState(update);
-            }));
+            }
 
             handler(state);
+
+            // await Promise.all(operations.map(async (op, i, all) => {
+            //
+            //
+            //     if (i) {
+            //         update = await all[i - 1]();
+            //         updateState(update);
+            //     }
+            //
+            //     update = await op();
+            //
+            //     updateState(update);
+            // }));
+
+            // handler(state);
         }
     };
 
