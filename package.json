@@ -1,61 +1,61 @@
 {
-  "name": "syncope",
-  "version": "0.0.3",
-  "description": "makes async operations over any iterable object as simple as the sync ones",
-  "main": "index.js",
-  "scripts": {
-    "tests": "ava",
-    "tests:watch": "ava --watch",
-    "tests:coverage": "nyc ava"
-  },
-  "keywords": [
-    "async",
-    "iteration"
-  ],
-  "author": "Alexander Zonov",
-  "license": "WTFPL",
-  "devDependencies": {
-    "ava": "^0.21.0",
-    "nyc": "^11.0.3"
-  },
-  "ava": {
-    "files": [
-      "tests.js"
-    ],
-    "source": [
-      "index.js"
-    ],
-    "concurrency": 5,
-    "powerAssert": true,
-    "verbose": false
-  },
-  "nyc": {
-    "check-coverage": true,
-    "watermarks": {
-      "lines": [
-        50,
-        95
-      ],
-      "functions": [
-        50,
-        95
-      ],
-      "branches": [
-        50,
-        85
-      ],
-      "statements": [
-        50,
-        95
-      ]
+    "name": "syncope",
+    "version": "0.0.4",
+    "description": "makes async operations over any iterable (in perspective, for now only over arrays) object as simple as the sync ones",
+    "main": "index.js",
+    "scripts": {
+        "tests": "ava",
+        "tests:watch": "ava --watch",
+        "tests:coverage": "nyc ava"
     },
-    "include": [
-      "index.js"
+    "keywords": [
+        "async",
+        "iteration"
     ],
-    "exclude": [
-      "tests.js"
-    ],
-    "cache": true,
-    "all": true
-  }
+    "author": "Alexander Zonov",
+    "license": "WTFPL",
+    "devDependencies": {
+        "ava": "^0.21.0",
+        "nyc": "^11.0.3"
+    },
+    "ava": {
+        "files": [
+            "tests.js"
+        ],
+        "source": [
+            "index.js"
+        ],
+        "concurrency": 5,
+        "powerAssert": true,
+        "verbose": false
+    },
+    "nyc": {
+        "check-coverage": true,
+        "watermarks": {
+            "lines": [
+                50,
+                95
+            ],
+            "functions": [
+                50,
+                95
+            ],
+            "branches": [
+                50,
+                85
+            ],
+            "statements": [
+                50,
+                95
+            ]
+        },
+        "include": [
+            "index.js"
+        ],
+        "exclude": [
+            "tests.js"
+        ],
+        "cache": true,
+        "all": true
+    }
 }
