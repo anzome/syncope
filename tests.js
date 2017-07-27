@@ -80,3 +80,30 @@ test('syncope: .reduce() works with async actions', async t => {
     t.is(one, 5);
     t.is(two, 3);
 });
+
+test(`code examples from readme checked`, async t => {
+    t.plan(2);
+
+    const executor = input => {
+        return Promise.resolve(input);
+    };
+    const otherExecutor = input => {
+        return new Promise((res, rej) => setTimeout(() => res(input), 1000));
+    };
+    const nextExecutor = async input => {
+        return await Promise.resolve(input);
+    };
+
+    const onlyAsyncCallbacks = await syncope([1, 2, 3])
+        .filter(async v => await executor(v < 3))
+        .map(v => otherExecutor(v + 1))
+        .reduce(async (a, v) => await nextExecutor(a + v), 0);
+
+    t.is(onlyAsyncCallbacks, 5);
+
+    // sync functions also allowed to be passed as callback
+    return syncope([5, 5, 5])
+        .map(v => v * 2)
+        .reduce((a, v) => executor(a - v), 30)
+        .then(v => t.is(v, 0));
+});
