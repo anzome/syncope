@@ -20,10 +20,10 @@
     },
     "ava": {
         "files": [
-            "./tests/*.js"
+            "tests/*.js"
         ],
         "source": [
-            "./src/index.js"
+            "src/*.js"
         ],
         "concurrency": 5,
         "powerAssert": true,
@@ -50,11 +50,9 @@
             ]
         },
         "include": [
-            "./src/*.js"
+            "src/*.js"
         ],
-        "exclude": [
-            "tests.js"
-        ],
+        "exclude": [],
         "cache": true,
         "all": true
     }
