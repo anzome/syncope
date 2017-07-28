@@ -2,7 +2,7 @@
 
 const test = require('ava');
 
-const syncope = require('./index');
+const syncope = require('../src/index');
 
 test('syncope: should throw is provided data structure is not an Array', async t => {
     await t.throws(syncope.bind(null, 'string'));

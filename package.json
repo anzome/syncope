@@ -2,7 +2,7 @@
     "name": "syncope",
     "version": "0.0.4",
     "description": "makes async operations over any iterable (in perspective, for now only over arrays) object as simple as the sync ones",
-    "main": "index.js",
+    "main": "./src/index.js",
     "scripts": {
         "tests": "ava",
         "tests:watch": "ava --watch",
@@ -20,10 +20,10 @@
     },
     "ava": {
         "files": [
-            "tests.js"
+            "./tests/*.js"
         ],
         "source": [
-            "index.js"
+            "./src/index.js"
         ],
         "concurrency": 5,
         "powerAssert": true,
@@ -50,7 +50,7 @@
             ]
         },
         "include": [
-            "index.js"
+            "./src/*.js"
         ],
         "exclude": [
             "tests.js"
