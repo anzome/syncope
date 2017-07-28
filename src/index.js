@@ -15,9 +15,9 @@ const syncope = (arr) => {
         }
     };
 
-    const getState = () => {
-        return Promise.all([...state]);
-    };
+    const getState = () => (
+        Promise.all([...state])
+    );
 
     const createOperation = (type, handler, rest) => {
         if (typeof handler !== 'function') {
@@ -31,11 +31,9 @@ const syncope = (arr) => {
                     let temp = await getState();
                     let mask = await Promise.all(temp.map(handler));
 
-                    temp = await getState();
-
-                    return temp.filter((item, i) => {
-                        return mask[i];
-                    });
+                    return temp.filter((item, i) => (
+                        mask[i]
+                    ));
                 });
 
                 break;
@@ -60,10 +58,9 @@ const syncope = (arr) => {
                         return handler(acc, val);
                     };
 
-                    const reduceHandler = async (acc, val) => {
-
-                        return await asyncAction(acc, val);
-                    };
+                    const reduceHandler = async (acc, val) => (
+                        await asyncAction(acc, val)
+                    );
 
                     return temp.reduce(reduceHandler, rest.initialValue);
                 });
@@ -103,21 +100,6 @@ const syncope = (arr) => {
             }
 
             handler(state);
-
-            // await Promise.all(operations.map(async (op, i, all) => {
-            //
-            //
-            //     if (i) {
-            //         update = await all[i - 1]();
-            //         updateState(update);
-            //     }
-            //
-            //     update = await op();
-            //
-            //     updateState(update);
-            // }));
-
-            // handler(state);
         }
     };
 
