@@ -1,0 +1,99 @@
+{
+    "env": {
+        "browser": false,
+        "node": true,
+        "es6": true,
+        "shared-node-browser": false,
+        "amd": false,
+        "jasmine": false,
+        "phantomjs": false,
+        "jquery": false
+    },
+    "parserOptions": {
+        "ecmaVersion": 2017,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "arrowFunctions": true,
+            "binaryLiterals": true,
+            "blockBindings": true,
+            "classes": true,
+            "defaultParams": true,
+            "destructuring": true,
+            "forOf": true,
+            "generators": true,
+            "modules": true,
+            "objectLiteralComputedProperties": true,
+            "objectLiteralDuplicateProperties": true,
+            "objectLiteralShorthandMethods": true,
+            "objectLiteralShorthandProperties": true,
+            "octalLiterals": true,
+            "regexUFlag": true,
+            "regexYFlag": true,
+            "restParams": true,
+            "spread": true,
+            "superInFunctions": true,
+            "templateStrings": true,
+            "globalReturn": true,
+            "jsx": true
+        }
+    },
+    "rules": {
+        "no-unused-vars": 2,
+        "no-undef": 2,
+        "no-mixed-spaces-and-tabs": 2,
+        "valid-typeof": 2,
+        "no-fallthrough": 2,
+        "no-redeclare": [
+            1,
+            {
+                "builtinGlobals": true
+            }
+        ],
+        "radix": [
+            2,
+            "always"
+        ],
+        "yoda": 2,
+        "no-delete-var": 2,
+        "eqeqeq": [
+            2,
+            "smart"
+        ],
+        "no-multi-spaces": 2,
+        "brace-style": [
+            2,
+            "1tbs",
+            {
+                "allowSingleLine": true
+            }
+        ],
+        "comma-spacing": [
+            2,
+            {
+                "before": false,
+                "after": true
+            }
+        ],
+        "eol-last": 2,
+        "indent": [
+            1,
+            4,
+            {
+                "SwitchCase": 1,
+                "VariableDeclarator": {
+                    "var": 4,
+                    "let": 4,
+                    "const": 6
+                }
+            }
+        ],
+        "no-trailing-spaces": [
+            2,
+            {
+                "skipBlankLines": true
+            }
+        ]
+    },
+    "plugins": [],
+    "settings": {}
+}
