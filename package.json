@@ -1,8 +1,8 @@
 {
     "name": "syncope",
-    "version": "0.0.4",
+    "version": "0.1.0",
     "description": "makes async operations over any iterable (in perspective, for now only over arrays) object as simple as the sync ones",
-    "main": "./src/index.js",
+    "main": "./dist/index.js",
     "scripts": {
         "tests": "npm run build && ava",
         "tests:watch": "npm run build && ava --watch",
