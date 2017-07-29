@@ -28,16 +28,39 @@ const chooseOperation = (type) => {
     }
 };
 
-const operationsStore = (operations, getState) => ({
-    add: (type, handler, rest) => {
+const createStore = (initialState = []) => ({
+    state: initialState,
+    setState: function (newState) {
+        if (newState.constructor === Array) {
+            this.state = [...newState];
+        } else {
+            this.state = newState;
+        }
+    },
+    getState: function () {
+        if (this.state.constructor === Array) {
+            return Promise.all([...this.state]);
+        } else {
+            return Promise.resolve(this.state);
+        }
+    }
+});
+
+const operationsStore = (store) => ({
+    operations: [],
+    add: function (type, handler, rest) {
         if (typeof handler !== 'function') {
             // no simple way to reach this condition from tests, and no need actually
             return;
         }
 
-        operations.push(chooseOperation(type)(getState, handler, rest));
+        const initOperation = chooseOperation(type);
+
+        this.operations.push(initOperation(handler, rest));
     },
-    list: () => [...operations]
+    list: function () {
+        return [...this.operations];
+    }
 });
 
 const returnMethods = (store, operations) => ({
@@ -61,10 +84,10 @@ const returnMethods = (store, operations) => ({
 
         let ops = operations.list();
 
-        let update;
         for (let i = 0, len = ops.length; i < len; i++) {
-            update = await ops[i]().catch(error => console.error(error));
-            store.updateState(update);
+            await ops[i](store.getState())
+                .then(store.setState.bind(store))
+                .catch(console.error);
         }
 
         const result = await store.getState();
@@ -75,35 +98,14 @@ const returnMethods = (store, operations) => ({
     }
 });
 
-const updateState = (state) => (newState) => {
-    if (newState.constructor === Array) {
-        state = [...newState];
-    } else {
-        state = newState;
-    }
-};
-
-const getState = (state) => () => {
-    if (state.constructor === Array) {
-        return Promise.all([...state]);
-    } else {
-        return Promise.resolve(state);
-    }
-};
-
 const syncope = (arr) => {
     if (arr.constructor !== Array) {
         throw new Error('Only array supported by now', arr);
     }
 
-    let state = [];
-    let operations = [];
-    const store = {
-        updateState: updateState(state),
-        getState: getState(state)
-    };
+    const store = createStore(arr);
 
-    return returnMethods(store, operationsStore(operations, store.getState));
+    return returnMethods(store, operationsStore(store));
 };
 
 export default syncope

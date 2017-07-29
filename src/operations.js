@@ -1,22 +1,20 @@
-export const filterOperation = (getState, handler, rest) => async () => {
-    let temp = await getState();
+export const filterOperation = (handler, rest) => async (prevState) => {
+    let temp = await prevState;
     let mask = await Promise.all(temp.map(handler));
 
     return temp.filter((item, i) => (
         mask[i]
     ));
 };
-
-export const mapOperation = (getState, handler, rest) => async () => {
-    let temp = await getState();
+export const mapOperation = (handler, rest) => async (prevState) => {
+    let temp = await prevState;
 
     temp = await Promise.all(temp.map(handler));
-
     return temp;
 };
 
-export const reduceOperation = (getState, handler, rest) => async () => {
-    let temp = await getState();
+export const reduceOperation = (handler, rest) => async (prevState) => {
+    let temp = await prevState;
 
     const asyncAction = async (acc, val) => {
         acc = await acc;
