@@ -89,7 +89,7 @@ const operationsStore = (store) => ({
     }
 });
 
-const returnMethods = (store, operations) => ({
+const methods = (store, operations) => ({
 
     filter: function (handler) {
         operations.add('filter', handler);
@@ -131,7 +131,7 @@ const syncope = (arr) => {
 
     const store = createStore(arr);
 
-    return returnMethods(store, operationsStore(store));
+    return methods(store, operationsStore(store));
 };
 
 module.exports = syncope;
