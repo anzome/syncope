@@ -4,9 +4,10 @@
     "description": "makes async operations over any iterable (in perspective, for now only over arrays) object as simple as the sync ones",
     "main": "./src/index.js",
     "scripts": {
-        "tests": "ava",
-        "tests:watch": "ava --watch",
-        "tests:coverage": "nyc ava"
+        "tests": "npm run build && ava",
+        "tests:watch": "npm run build && ava --watch",
+        "tests:coverage": "npm run build && nyc ava",
+        "build": "rollup --input ./src/index.js --output ./dist/index.js --format cjs"
     },
     "keywords": [
         "async",
@@ -16,14 +17,15 @@
     "license": "WTFPL",
     "devDependencies": {
         "ava": "^0.21.0",
-        "nyc": "^11.0.3"
+        "nyc": "^11.0.3",
+        "rollup": "^0.45.2"
     },
     "ava": {
         "files": [
             "tests/*.js"
         ],
         "source": [
-            "src/*.js"
+            "dist/*.js"
         ],
         "concurrency": 5,
         "powerAssert": true,
@@ -50,7 +52,7 @@
             ]
         },
         "include": [
-            "src/*.js"
+            "dist/*.js"
         ],
         "exclude": [],
         "cache": true,

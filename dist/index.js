@@ -1,8 +1,36 @@
-import {
-    filterOperation,
-    mapOperation,
-    reduceOperation
-} from "./operations";
+'use strict';
+
+const filterOperation = (getState, handler, rest) => async () => {
+    let temp = await getState();
+    let mask = await Promise.all(temp.map(handler));
+
+    return temp.filter((item, i) => (
+        mask[i]
+    ));
+};
+
+const mapOperation = (getState, handler, rest) => async () => {
+    let temp = await getState();
+
+    temp = await Promise.all(temp.map(handler));
+
+    return temp;
+};
+
+const reduceOperation = (getState, handler, rest) => async () => {
+    let temp = await getState();
+
+    const asyncAction = async (acc, val) => {
+        acc = await acc;
+        return handler(acc, val);
+    };
+
+    const reduceHandler = async (acc, val) => (
+        await asyncAction(acc, val)
+    );
+
+    return temp.reduce(reduceHandler, rest.initialValue);
+};
 
 const chooseOperation = (type) => {
     switch (type) {
@@ -106,4 +134,4 @@ const syncope = (arr) => {
     return returnMethods(store, operationsStore(operations, store.getState));
 };
 
-export default syncope
+module.exports = syncope;

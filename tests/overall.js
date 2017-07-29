@@ -2,7 +2,7 @@
 
 const test = require('ava');
 
-const syncope = require('../src/index');
+const syncope = require('../dist/index');
 
 test('syncope: should throw is provided data structure is not an Array', async t => {
     await t.throws(syncope.bind(null, 'string'));
@@ -16,7 +16,8 @@ test('syncope: returns object with expected set of methods', t => {
     t.is(syn.map.constructor, Function);
     t.is(syn.filter.constructor, Function);
     t.is(syn.reduce.constructor, Function);
-    t.is(syn.then.constructor, Object.getPrototypeOf(async () => {}).constructor);
+    t.is(syn.then.constructor, Object.getPrototypeOf(async () => {
+    }).constructor);
 });
 
 test('syncope: result is always thenable', async t => {
@@ -53,7 +54,7 @@ test('syncope: .filter() works with async actions', async t => {
     t.deepEqual(result, [1, 2, 3]);
 });
 
-test('syncope: .maps() works with async actions', async t => {
+test('syncope: .map() works with async actions', async t => {
     let result = syncope([1, -1, 2, -2, 3, -3]).map(async item => {
         item = await Promise.resolve(item * item);
         return item;

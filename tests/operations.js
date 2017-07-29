@@ -1,5 +1,4 @@
-
 const test = require('ava');
 const syncope = require('../dist/index');
 
-test.todo('performance test');
+test.todo('test for separate operations');
